@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.java.javareact.dao.TestDao">
 
-	<select id="test" resultType="java.util.HashMap" >
+	<select id="test" resultType="camelMap">
 		SELECT * from ggipk.MEM_MASTER mm
 	</select>
 
