@@ -1,6 +1,6 @@
 import React from 'react';
 import {Route} from 'react-router-dom';
-import LoginPage from './Component/LoginPage';
+import LoginPage from './container/LoginPage';
 
 function App() {
 	return (
