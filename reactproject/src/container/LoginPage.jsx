@@ -13,6 +13,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import axios from 'axios';
+import {useHistory} from 'react-router-dom';
 
 function Copyright() {
 	return (
@@ -63,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
 export default function LoginPage() {
 	const classes = useStyles();
 	const [inputs, setInputs] = useState({memId: '', memPwd: ''});
-
+	const history = useHistory();
 	const handleChange = (e) => {
 		const {name, value} = e.target;
 		setInputs({...inputs, [name]: value});
@@ -89,6 +90,7 @@ export default function LoginPage() {
 			) {
 				alert(data.memNm + '님 환영합니다.');
 				window.sessionStorage.setItem('session', JSON.stringify(data));
+				goToPage();
 			} else {
 				alert('fuck U');
 			}
@@ -96,7 +98,7 @@ export default function LoginPage() {
 			console.log(e);
 		}
 	};
-
+	const goToPage = () => history.push('/test');
 	return (
 		<Grid container component='main' className={classes.root}>
 			<CssBaseline />
