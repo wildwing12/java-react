@@ -1,18 +1,11 @@
-import {useEffect, useState} from 'react';
-import axios from 'axios';
+import React from 'react';
+import {Route} from 'react-router-dom';
+import LoginPage from './Component/LoginPage';
 
 function App() {
-	const [test, setTest] = useState();
-
-	useEffect(async () => {
-		const response = await axios.get('http://localhost:8088/test');
-		console.log(response.data[0].memId);
-		setTest(response.data[0].memId);
-	}, []);
-
 	return (
 		<div>
-			<h1>{test}</h1>
+			<Route path='/' exact component={LoginPage} />
 		</div>
 	);
 }
