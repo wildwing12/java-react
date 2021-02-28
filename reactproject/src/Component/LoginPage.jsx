@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,6 +12,7 @@ import Grid from '@material-ui/core/Grid';
 //import LockOutlinedIcon from '@material-ui/core/Icon';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
+import axios from 'axios';
 
 function Copyright() {
 	return (
@@ -61,6 +62,40 @@ const useStyles = makeStyles((theme) => ({
 
 export default function LoginPage() {
 	const classes = useStyles();
+	const [inputs, setInputs] = useState({memId: '', memPwd: ''});
+
+	const handleChange = (e) => {
+		const {name, value} = e.target;
+		setInputs({...inputs, [name]: value});
+	};
+
+	const login = async (e) => {
+		e.preventDefault();
+		//console.log(inputs);
+		try {
+			let res = await axios.post(
+				'http://localhost:8088/api/login',
+				inputs,
+			);
+			console.log(res);
+			let data = res.data;
+			if (
+				res.status === 200 &&
+				!(
+					data.memNo === '' ||
+					data.memNo === null ||
+					data.memNo === undefined
+				)
+			) {
+				alert(data.memNm + '님 환영합니다.');
+				window.sessionStorage.setItem('session', JSON.stringify(data));
+			} else {
+				alert('fuck U');
+			}
+		} catch (e) {
+			console.log(e);
+		}
+	};
 
 	return (
 		<Grid container component='main' className={classes.root}>
@@ -82,28 +117,30 @@ export default function LoginPage() {
 					<Typography component='h1' variant='h5'>
 						Sign in
 					</Typography>
-					<form className={classes.form} noValidate>
+					<form className={classes.form} noValidate onSubmit={login}>
 						<TextField
 							variant='outlined'
 							margin='normal'
 							required
 							fullWidth
-							id='email'
-							label='Email Address'
-							name='email'
-							autoComplete='email'
+							id='memId'
+							label='Id'
+							name='memId'
+							autoComplete='memId'
 							autoFocus
+							onChange={handleChange}
 						/>
 						<TextField
 							variant='outlined'
 							margin='normal'
 							required
 							fullWidth
-							name='password'
+							name='memPwd'
 							label='Password'
 							type='password'
-							id='password'
+							id='memPwd'
 							autoComplete='current-password'
+							onChange={handleChange}
 						/>
 						<FormControlLabel
 							control={
