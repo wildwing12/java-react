@@ -6,8 +6,8 @@ function App() {
 
 	useEffect(async () => {
 		const response = await axios.get('http://localhost:8088/test');
-		console.log(response.data[0].MEM_ID);
-		setTest(response.data[0].MEM_ID);
+		console.log(response.data[0].memId);
+		setTest(response.data[0].memId);
 	}, []);
 
 	return (
