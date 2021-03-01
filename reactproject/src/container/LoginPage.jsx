@@ -14,6 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import axios from 'axios';
 import {useHistory} from 'react-router-dom';
+import Util from '../utils/commonUtil';
 
 function Copyright() {
 	return (
@@ -80,14 +81,7 @@ export default function LoginPage() {
 			);
 			console.log(res);
 			let data = res.data;
-			if (
-				res.status === 200 &&
-				!(
-					data.memNo === '' ||
-					data.memNo === null ||
-					data.memNo === undefined
-				)
-			) {
+			if (res.status === 200 && Util.isNotEmpty(data.memNo)) {
 				alert(data.memNm + '님 환영합니다.');
 				window.sessionStorage.setItem('session', JSON.stringify(data));
 				goToPage();
